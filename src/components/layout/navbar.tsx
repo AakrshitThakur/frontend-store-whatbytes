@@ -6,17 +6,17 @@ const cartCount: number = 3;
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-blue-600 text-white p-4">
+    <nav className="bg-blue-600 text-white p-4 mb-2">
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo on the left */}
         <div className="flex-shrink-0">
           <Link href="/" className="text-2xl font-bold">
-            MyLogo
+            StoreWhatbytes
           </Link>
         </div>
 
         {/* Search bar in the center */}
-        <div className="mx-4">
+        <div className="mx-4 w-2/5">
           <input
             type="text"
             placeholder="Search..."
@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
         <div>
           <button
             type="button"
-            className="relative flex justify-center p-2 rounded bg-blue-700 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-white"
+            className="relative flex justify-center px-5 py-2 rounded bg-blue-700 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-white"
             aria-label="View cart"
           >
             <ShoppingCart className="w-10 h-6" />
