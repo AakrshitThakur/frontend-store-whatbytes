@@ -1,15 +1,32 @@
 // app/[id]/page.tsx
 "use client";
+import { useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Navbar from "@/components/layout/navbar";
-import { allProducts } from "@/utils/contants/all-products";
+import { getAllProducts } from "@/utils/functions/product";
+import { useDispatch, useSelector } from "react-redux";
+import type { TypedUseSelectorHook } from "react-redux";
+import { RootState } from "@/stores/store";
+import { addToCart } from "@/features/cartSlice";
+import { CartItem } from "@/utils/interfaces/cart";
 
 export default function ProductPage() {
+  const [quantity, setQuantity] = useState<number>(0);
+
+  const dispatch = useDispatch();
+  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
   const params = useParams();
   const id = params.id;
-  const product = allProducts.find((p) => p.id === id);
+
+  const product = getAllProducts().find((p) => p.id === id);
   if (!product) return notFound();
+
+  const addToCartF = (props: CartItem) => {
+    dispatch(addToCart(props));
+    setQuantity(0);
+  };
 
   return (
     <div id="product-page">
@@ -44,13 +61,26 @@ export default function ProductPage() {
             <input
               id="quantity"
               type="number"
-              defaultValue={1}
-              min={1}
+              min={0}
+              value={quantity}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setQuantity(parseInt(e.target.value))
+              }
               className="w-16 px-2 py-1 border rounded-md"
             />
           </div>
 
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition mt-4">
+          <button
+            onClick={() =>
+              addToCartF({
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                quantity: quantity,
+                image: product.image,
+              })
+            }
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition mt-4 cursor-pointer">
             Add to Cart
           </button>
         </div>

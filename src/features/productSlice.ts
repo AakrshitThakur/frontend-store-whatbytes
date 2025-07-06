@@ -1,5 +1,7 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "@/utils/interfaces/product";
-export const allProducts: Product[] = [
+
+const initialState: Product[] = [
   {
     id: "88bc1810-9241-4a8d-9642-b1158a6eeb0a",
     title: "Nike Shoe",
@@ -49,3 +51,11 @@ export const allProducts: Product[] = [
     rating: 3,
   },
 ];
+
+export const productSlice = createSlice({
+  name: "product",
+  initialState,
+  reducers: {},
+});
+
+export default productSlice.reducer;

@@ -8,8 +8,6 @@ import type { TypedUseSelectorHook } from "react-redux";
 import { RootState } from "@/stores/store";
 import { updateSearchStr } from "@/features/navbarSlice";
 
-const cartCount: number = 3;
-
 const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -18,7 +16,7 @@ const Navbar: React.FC = () => {
     <nav className="bg-blue-600 text-white p-4 mb-2">
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo on the left */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 hidden sm:block">
           <Link href="/" className="text-2xl font-bold">
             StoreWhatbytes
           </Link>
@@ -33,25 +31,22 @@ const Navbar: React.FC = () => {
               dispatch(updateSearchStr(e.target.value))
             }
             value={searchStr}
-            className="w-full rounded-md bg-white border border-gray-300 px-4 py-2 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full rounded-md bg-white border border-gray-300 px-4 py-2 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base md:text-lg lg:text-xl"
           />
         </div>
 
         {/* Cart button on the right */}
         <div>
-          <button
-            type="button"
-            className="relative flex justify-center px-5 py-2 rounded bg-blue-700 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-white"
-            aria-label="View cart"
-          >
-            <ShoppingCart className="w-10 h-6" />
-            {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">
-                {cartCount}
-              </span>
-            )}
-            Cart
-          </button>
+          <Link href="/cart">
+            <button
+              type="button"
+              className="relative flex justify-center px-5 py-2 rounded bg-blue-700 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+              aria-label="View cart"
+            >
+              <ShoppingCart className="w-10 h-6" />
+              Cart
+            </button>
+          </Link>
         </div>
       </div>
     </nav>

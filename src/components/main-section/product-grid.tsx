@@ -1,27 +1,29 @@
 // components/main-section/product-grid.tsx
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
 import { Star } from "lucide-react";
 import { Product } from "@/utils/interfaces/product";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import { RootState } from "@/stores/store";
+import { addToCart } from "@/features/cartSlice";
+import { getAllProducts } from "@/utils/functions/product";
+import { CartItem } from "@/utils/interfaces/cart";
 
-interface GridProps {
-  products: Product[];
-}
-
-export const ProductGrid: FC<GridProps> = ({ products }) => {
+export const ProductGrid = () => {
+  const dispatch = useDispatch();
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-  const { selectedCats, categories, range } = useAppSelector(
-    (state) => state.sidebar
-  );
+  const { selectedCats, range } = useAppSelector((state) => state.sidebar);
   const { searchStr } = useAppSelector((state) => state.navbar);
 
-  const filteredProducts: Product[] = products.filter((p) =>
+  const filteredProducts: Product[] = getAllProducts().filter((p) =>
     p.title.toLowerCase().includes(searchStr.toLowerCase())
   );
+
+  const addToCartF = (props: CartItem) => {
+    dispatch(addToCart(props));
+  };
 
   return (
     <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-2">
@@ -50,6 +52,7 @@ export const ProductGrid: FC<GridProps> = ({ products }) => {
                 <p className="font-semibold mb-1">
                   &#8377;{product.price.toFixed(2)}
                 </p>
+
                 {product.rating !== undefined && (
                   <div className="flex items-center gap-1 mb-2">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -65,7 +68,18 @@ export const ProductGrid: FC<GridProps> = ({ products }) => {
                     ))}
                   </div>
                 )}
-                <button className="mt-auto bg-blue-600 text-white py-1 rounded-lg hover:bg-blue-700 transition text-sm">
+                <button
+                  className={`mt-auto bg-blue-600 text-white py-1 rounded-lg hover:bg-blue-700 transition text-sm cursor-pointer`}
+                  onClick={() =>
+                    addToCartF({
+                      id: product.id,
+                      title: product.title,
+                      price: product.price,
+                      quantity: 1,
+                      image: product.image,
+                    })
+                  }
+                >
                   Add to Cart
                 </button>
               </div>

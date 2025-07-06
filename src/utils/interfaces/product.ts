@@ -7,3 +7,7 @@ export interface Product {
   category: string;
   rating?: number;
 }
+export interface UpdateQuantity{
+    id: string,
+    quantity: number
+}

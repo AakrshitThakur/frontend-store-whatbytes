@@ -1,5 +1,6 @@
 // components/Sidebar.tsx
-import { FC, useState } from "react";
+"use client";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSelectedCats, updateRange } from "@/features/sidebarSlice";
 import type { TypedUseSelectorHook } from "react-redux";
@@ -8,9 +9,7 @@ import { RootState } from "@/stores/store";
 export const Sidebar = () => {
   const dispatch = useDispatch();
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-  const { selectedCats, categories, range } = useAppSelector(
-    (state) => state.sidebar
-  );
+  const { selectedCats, categories } = useAppSelector((state) => state.sidebar);
 
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(100000);
@@ -41,7 +40,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className="w-64 space-y-6 p-4 border-r">
+    <aside className="w-full sm:w-64 space-y-6 p-4 border-r">
       <div className="bg-blue-600 text-white p-2 rounded-md">
         {/* Categories */}
         <div className="mb-2">
