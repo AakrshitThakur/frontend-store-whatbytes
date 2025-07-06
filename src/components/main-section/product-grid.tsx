@@ -1,5 +1,6 @@
 // components/main-section/product-grid.tsx
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 import { Star } from "lucide-react";
 import { Product } from "@/utils/interfaces/product";
@@ -16,10 +17,15 @@ export const ProductGrid: FC<GridProps> = ({ products }) => {
   const { selectedCats, categories, range } = useAppSelector(
     (state) => state.sidebar
   );
+  const { searchStr } = useAppSelector((state) => state.navbar);
+
+  const filteredProducts: Product[] = products.filter((p) =>
+    p.title.toLowerCase().includes(searchStr.toLowerCase())
+  );
 
   return (
     <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-2">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <>
           {selectedCats.includes(product.category) &&
             product.price >= range.min &&
@@ -29,12 +35,14 @@ export const ProductGrid: FC<GridProps> = ({ products }) => {
                 className="border rounded-xl shadow-sm flex flex-col aspect-square p-2 sm:p-3 md:p-2"
               >
                 <div className="relative w-full aspect-square mb-2">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    fill
-                    className="object-cover rounded-lg"
-                  />
+                  <Link href={"/" + product.id}>
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      className="object-cover rounded-lg"
+                    />
+                  </Link>
                 </div>
                 <h3 className="text-base md:text-sm font-medium mb-1">
                   {product.title}

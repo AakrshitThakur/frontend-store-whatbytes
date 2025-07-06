@@ -33,8 +33,8 @@ export const sidebarSlice = createSlice({
     updateRange(
       state,
       action: PayloadAction<{
-        min: Number;
-        max: Number;
+        min: number;
+        max: number;
       }>
     ) {
       state.range = action.payload;

@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sidebarSlice from "@/features/sidebarSlice";
+import navbarSlice from "@/features/navbarSlice";
 
 export const createStore = () =>
   configureStore({
     reducer: {
       sidebar: sidebarSlice,
+      navbar: navbarSlice,
     },
   });
 
