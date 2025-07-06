@@ -1,4 +1,5 @@
-import Navbar from "@/components/layout/navbar";
+import Navbar from "@/components/header/navbar";
+import Footer from "@/components/footer/Footer";
 import { Sidebar } from "@/components/main-section/sidebar";
 import { ProductGrid } from "@/components/main-section/product-grid";
 
@@ -10,6 +11,7 @@ export default function Home() {
         <Sidebar />
         <ProductGrid />
       </main>
+      <Footer />
     </div>
   );
 }

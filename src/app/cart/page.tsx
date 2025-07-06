@@ -1,13 +1,13 @@
 // app/cart/page.tsx
 "use client";
-import { useState } from "react";
 import Image from "next/image";
-import Navbar from "@/components/layout/navbar";
+import Navbar from "@/components/header/navbar";
 import { CartItem } from "@/utils/interfaces/cart";
 import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import { RootState } from "@/stores/store";
 import { updateCartItemQuantity, removeCartItem } from "@/features/cartSlice";
+import Footer from "@/components/footer/Footer";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -18,9 +18,9 @@ export default function CartPage() {
     dispatch(updateCartItemQuantity(c));
   };
 
-    const removeItem = (id: string) => {
-        dispatch(removeCartItem(id));
-    };
+  const removeItem = (id: string) => {
+    dispatch(removeCartItem(id));
+  };
 
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -30,7 +30,7 @@ export default function CartPage() {
   return (
     <div id="cart">
       <Navbar />
-      <main className="max-w-4xl mx-auto p-4">
+      <main className="max-w-4xl mx-auto p-4 min-h-[75vh]">
         <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
         {cartItems.length === 0 ? (
           <p className="text-gray-600">Your cart is empty.</p>
@@ -51,7 +51,9 @@ export default function CartPage() {
                 </div>
                 <div className="flex-1">
                   <h2 className="text-lg font-medium">{item.title}</h2>
-                  <p className="text-gray-700">&#8377;{item.price.toFixed(2)}</p>
+                  <p className="text-gray-700">
+                    &#8377;{item.price.toFixed(2)}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <input
@@ -83,6 +85,7 @@ export default function CartPage() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

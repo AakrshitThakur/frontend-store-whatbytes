@@ -3,19 +3,17 @@
 import { useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-import Navbar from "@/components/layout/navbar";
+import Navbar from "@/components/header/navbar";
 import { getAllProducts } from "@/utils/functions/product";
-import { useDispatch, useSelector } from "react-redux";
-import type { TypedUseSelectorHook } from "react-redux";
-import { RootState } from "@/stores/store";
+import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/cartSlice";
 import { CartItem } from "@/utils/interfaces/cart";
+import Footer from "@/components/footer/Footer";
 
 export default function ProductPage() {
   const [quantity, setQuantity] = useState<number>(0);
 
   const dispatch = useDispatch();
-  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
   const params = useParams();
   const id = params.id;
@@ -80,11 +78,13 @@ export default function ProductPage() {
                 image: product.image,
               })
             }
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition mt-4 cursor-pointer">
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition mt-4 cursor-pointer"
+          >
             Add to Cart
           </button>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
