@@ -3,7 +3,7 @@ import { StoreProvider } from "@/utils/wrapper/StoreProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Store Whatbytes",
+  title: "Store WhatBytes",
   description: "Store Whatbytes",
 };
 
