@@ -2,7 +2,7 @@
 A front-end website that displays products along with their prices, available quantities, images, and other relevant details, and includes a shopping cart for managing selected items.  
 
 ## Visuals
-![Landing-page](https://github.com/AakrshitThakur/frontend-store-whatbytes/blob/main/public/landing-page.jpeg?raw=true)
+<img src="https://github.com/AakrshitThakur/frontend-store-whatbytes/blob/main/public/landing-page.jpeg?raw=true" alt="Landing page" width="75%" />
 
 
 ## Live Project Link
